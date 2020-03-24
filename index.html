@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Hash</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Scripts -->
+  <script>
+    // jquery conflicts, only on nodeintragtion=true
+    // https://www.electronjs.org/docs/faq#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron
+    /*window.nodeRequire = require;
+    delete window.require;
+    delete window.exports;
+    delete window.module;*/
+  </script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="./window.js" charset="utf-8"></script>-->
+
+  <script src="./openeducationtagger.js"></script>
+
+</head>
+
+<body>
+  <div id="container" class="container">
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1>Open Education Tagger</h1>
+
+        <p>See instruction. This will sync google drive spreadsheet to... no deletion right now, use flush (coming soon)</p>
+
+        <button name="submit" type="submit" class="btn btn-primary">Sync</button>
+
+
+        <button name="submit" type="submit" class="btn btn-primary">Test first item</button>
+
+        <h2>Configuration</h2>
+      </div>
+
+      <!-- form -->
+      <form>
+        <div class="form-group row">
+          <label for="text1" class="col-4 col-form-label">Spreadsheet ID</label>
+          <div class="col-6">
+            <input id="text1" name="text1" placeholder="1gqRt0UxtcTNGKduQnTlV1MR3U5ByBkzCyTMkWE6wb04" type="text" class="form-control" aria-describedby="text1HelpBlock" required="required">
+            <span id="text1HelpBlock" class="form-text text-muted">Retrieve it from browser address bar: https://docs.google.com/spreadsheets/d/THIS-IS-THE-ID/edit?usp=sharing, spreadsheet needs to be published (See instructions)</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="oet_spreadsheet_sheet_id" class="col-4 col-form-label">Spreadsheet Sheet ID</label>
+          <div class="col-6">
+            <input id="oet_spreadsheet_sheet_id" name="oet_spreadsheet_sheet_id" placeholder="od6" type="text" class="form-control" required="required" aria-describedby="oet_spreadsheet_sheet_idHelpBlock">
+            <span id="oet_spreadsheet_sheet_idHelpBlock" class="form-text text-muted">In 99,999% of cases this will be "od6", see https://medium.com/@scottcents/how-to-convert-google-sheets-to-json-in-just-3-steps-228fe2c24e6</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="oet_elasticsearch_hostname" class="col-4 col-form-label">Host name</label>
+          <div class="col-6">
+            <input id="oet_elasticsearch_hostname" name="oet_elasticsearch_hostname" placeholder="scalr.api.appbase.io" type="text" class="form-control" required="required" aria-describedby="oet_elasticsearch_hostnameHelpBlock">
+            <span id="oet_elasticsearch_hostnameHelpBlock" class="form-text text-muted">Host name, retrieved from "https://user:pass@THE-HOSTNAME.io/index", e.g. scalr.api.appbase.io or bonsaisearch.net</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="oet_elasticsearch_index" class="col-4 col-form-label">Index name</label>
+          <div class="col-6">
+            <input id="oet_elasticsearch_index" name="oet_elasticsearch_index" placeholder="myelasticsearchindex" type="text" aria-describedby="oet_elasticsearch_indexHelpBlock" required="required" class="form-control">
+            <span id="oet_elasticsearch_indexHelpBlock" class="form-text text-muted">This is the app name on appbase.io, for bonsai.io you have to create it manually first</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="oet_elasticsearch_auth_key_write" class="col-4 col-form-label">Auth key</label>
+          <div class="col-6">
+            <input id="oet_elasticsearch_auth_key_write" name="oet_elasticsearch_auth_key_write" type="text" class="form-control" aria-describedby="oet_elasticsearch_auth_key_writeHelpBlock" required="required">
+            <span id="oet_elasticsearch_auth_key_writeHelpBlock" class="form-text text-muted">This is a "user:pass" string, e.g. "SxX2673783m:cc2829282921b19fe0dc567". Needs to have write permissions.</span>
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <div class="offset-4 col-6">
+            <button name="submit" type="submit" class="btn btn-primary">Save settings</button>
+          </div>
+        </div> -->
+      </form>
+      <!-- eo form -->
+
+      <!-- Input row -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+          <h3 class="hash-heading">Input</h3>
+          <textarea rows="2" id="text-input" class="form-control text-input" placeholder="Enter text and see it hashed..."></textarea>
+        </div>
+      </div>
+
+      <!-- MD5 row -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h3 class="hash-heading">MD5</h3>
+          <pre id="md5-output" class="hash-output"> </pre>
+        </div>
+      </div>
+
+      <!-- SHA-1 row -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h3 class="hash-heading">SHA-1</h3>
+          <pre id="sha1-output" class="hash-output"> </pre>
+        </div>
+      </div>
+
+      <!-- SHA-256 row -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h3 class="hash-heading">SHA-256</h3>
+          <pre id="sha256-output" class="hash-output"> </pre>
+        </div>
+      </div>
+
+      <!-- SHA-512 row -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h3 class="hash-heading">SHA-512</h3>
+          <pre id="sha512-output" class="hash-output"> </pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <a class="btn btn-warn" id="syncSpreadsheet">Sync it</a>
+        </div>
+      </div>
+
+    </div>
+</body>
+
+</html>
