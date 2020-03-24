@@ -1,8 +1,8 @@
 {
-  "name": "hash",
+  "name": "OpenEducationTagger",
   "version": "1.0.0",
-  "description": "See the various hash values of entered text",
-  "repository": "electron/simple-samples",
+  "description": "Sync spreadsheet to elasticsearch",
+  "repository": "https://github.comprogrammieraffe/open-education-tagger-electron",
   "main": "app.js",
   "scripts": {
     "start": "electron app.js"
