@@ -17,7 +17,7 @@ app.once('ready', () => {
   // Create a new window
   window = new BrowserWindow({
     // Set the initial width to 800px
-    width: 800,
+    width: 900,
     // Set the initial height to 600px
     height: 600,
     // Set the default background color of the window to match the CSS

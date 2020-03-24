@@ -34,71 +34,83 @@
 <body>
   <div id="container" class="container">
 
+
     <div class="row">
-      <div class="col-12 text-center">
+      <div class="col-12 text-center mt-5">
         <h1>Open Education Tagger</h1>
-
-        <p>See instruction. This will sync google drive spreadsheet to... no deletion right now, use flush (coming soon)</p>
-
-        <button name="submit" type="submit" class="btn btn-primary" id="oetSyncSpreadsheet">Sync</button>
-        <button name="submit" type="submit" class="btn btn-primary">Test first item</button>
-
-        <h2>Configuration</h2>
+        <p class="pt-2 pb-2">This will sync the given Google Drive Spreadsheet to an elasticsearch instance. The spreadsheet ID will be saved as column field in elasticsearch. Before the sync all entries with that ID will be deleted in the given elasticsearch instance. </p>
       </div>
-
-      <!-- form -->
-      <form>
-        <div class="form-group row">
-          <label for="oet_spreadsheet_id" class="col-4 col-form-label">Spreadsheet ID</label>
-          <div class="col-6">
-            <input id="oet_spreadsheet_id" name="oet_spreadsheet_id" type="text" class="form-control" aria-describedby="oet_spreadsheet_idHelpBlock" required="required">
-            <span id="oet_spreadsheet_idHelpBlock" class="form-text text-muted">Retrieve it from browser address bar: https://docs.google.com/spreadsheets/d/THIS-IS-THE-ID/edit?usp=sharing, e.g. '1kntJWO9iP6rL6WFqKXNsINoa923LjoDfEz38_NA4-ao' - spreadsheet needs
-              to be published (See instructions)</span>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="oet_spreadsheet_sheet_id" class="col-4 col-form-label">Spreadsheet Sheet ID</label>
-          <div class="col-6">
-            <input id="oet_spreadsheet_sheet_id" name="oet_spreadsheet_sheet_id" type="text" class="form-control" required="required" aria-describedby="oet_spreadsheet_sheet_idHelpBlock">
-            <span id="oet_spreadsheet_sheet_idHelpBlock" class="form-text text-muted">In 99,999% of cases this will be "od6", see https://medium.com/@scottcents/how-to-convert-google-sheets-to-json-in-just-3-steps-228fe2c24e6</span>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="oet_elasticsearch_hostname" class="col-4 col-form-label">elasticsearch: Host name</label>
-          <div class="col-6">
-            <input id="oet_elasticsearch_hostname" name="oet_elasticsearch_hostname" type="text" class="form-control" required="required" aria-describedby="oet_elasticsearch_hostnameHelpBlock">
-            <span id="oet_elasticsearch_hostnameHelpBlock" class="form-text text-muted">Host name, retrieved from "https://user:pass@THE-HOSTNAME.io/index", e.g. scalr.api.appbase.io or bonsaisearch.net</span>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="oet_elasticsearch_index" class="col-4 col-form-label">elasticsearch: Index name</label>
-          <div class="col-6">
-            <input id="oet_elasticsearch_index" name="oet_elasticsearch_index" type="text" aria-describedby="oet_elasticsearch_indexHelpBlock" required="required" class="form-control">
-            <span id="oet_elasticsearch_indexHelpBlock" class="form-text text-muted">This is the app name on appbase.io, for bonsai.io you have to create it manually first</span>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="oet_elasticsearch_auth_string_write" class="col-4 col-form-label">elasticsearch: Authentication string</label>
-          <div class="col-6">
-            <input id="oet_elasticsearch_auth_string_write" name="oet_elasticsearch_auth_string_write" type="text" class="form-control" aria-describedby="oet_elasticsearch_auth_key_writeHelpBlock" required="required">
-            <span id="oet_elasticsearch_auth_key_writeHelpBlock" class="form-text text-muted">This is a "user:pass" string, e.g. "SxX2673783m:cc2829282921b19fe0dc567". Needs to have write permissions.</span>
-          </div>
-        </div>
-        <!-- <div class="form-group row">
-          <div class="offset-4 col-6">
-            <button name="submit" type="submit" class="btn btn-primary">Save settings</button>
-          </div>
-        </div> -->
-      </form>
-      <!-- eo form -->
-
-      <div class="row">
-        <div class="col-12">
-          <a class="btn btn-delete" id="oetClearStore">Delete all settings</a>
-        </div>
-      </div>
-
     </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            Configuration
+          </div>
+          <div class="card-body">
+            <!-- <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+
+            <!-- form -->
+            <form>
+              <div class="form-group">
+                <label for="oet_spreadsheet_id">Spreadsheet ID</label>
+                <input id="oet_spreadsheet_id" name="oet_spreadsheet_id" type="text" class="form-control" aria-describedby="oet_spreadsheet_idHelpBlock" required="required">
+                <small class="form-text text-muted">Retrieve it from browser address bar: https://docs.google.com/spreadsheets/d/THIS-IS-THE-ID/edit?usp=sharing, e.g. '1gqRt0UxtcTNGKduQnTlV1MR3U5ByBkzCyTMkWE6wb04' -
+                  spreadsheet needs
+                  to be published (See instructions)</small>
+              </div>
+
+              <div class="form-group">
+                <label for="oet_spreadsheet_sheet_id">Spreadsheet Sheet ID</label>
+                <input id="oet_spreadsheet_sheet_id" name="oet_spreadsheet_sheet_id" type="text" class="form-control" required="required" aria-describedby="oet_spreadsheet_sheet_idHelpBlock">
+                <small id="oet_spreadsheet_sheet_idHelpBlock" class="form-text text-muted">In 99,999% of cases this will be "od6", see https://medium.com/@scottcents/how-to-convert-google-sheets-to-json-in-just-3-steps-228fe2c24e6</small>
+              </div>
+
+              <div class="form-group">
+                <label for="oet_elasticsearch_hostname">elasticsearch: Host name</label>
+                <input id="oet_elasticsearch_hostname" name="oet_elasticsearch_hostname" type="text" class="form-control" required="required" aria-describedby="oet_elasticsearch_hostnameHelpBlock">
+                <small id="oet_elasticsearch_hostnameHelpBlock" class="form-text text-muted">Host name, retrieved from "https://user:pass@THE-HOSTNAME.io/index", e.g. scalr.api.appbase.io or bonsaisearch.net</small>
+              </div>
+
+              <div class="form-group">
+                <label for="oet_elasticsearch_index">elasticsearch: Index name</label>
+                <input id="oet_elasticsearch_index" name="oet_elasticsearch_index" type="text" aria-describedby="oet_elasticsearch_indexHelpBlock" required="required" class="form-control">
+                <small id="oet_elasticsearch_indexHelpBlock" class="form-text text-muted">This is the app name on appbase.io, for bonsai.io you have to create it manually first</small>
+              </div>
+
+              <div class="form-group">
+                <label for="oet_elasticsearch_auth_string_write">elasticsearch: Authentication string</label>
+                <input id="oet_elasticsearch_auth_string_write" name="oet_elasticsearch_auth_string_write" type="text" class="form-control" aria-describedby="oet_elasticsearch_auth_key_writeHelpBlock" required="required">
+                <small id="oet_elasticsearch_auth_key_writeHelpBlock" class="form-text text-muted">This is a "user:pass" string, e.g. "SxX2673783m:cc2829282921b19fe0dc567". Needs to have write permissions.</small>
+              </div>
+
+              <div class="form-group text-center mt-5">
+                <button type="button" class="btn btn-lg btn-warning" id="oetSyncSpreadsheet">Sync it</button>
+              </div>
+
+            </form>
+            <!-- eo form -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h5>Advanced:</h5>
+        <ul>
+          <li>Run <a href="#" id="oetDeleteBySpreadsheetId">deleteBySpreadsheetId()</a></li>
+          <li><a href="#" id="oetClearStore">Delete all settings</a></li>
+          <li>Run <a href="#" id="oetTestBulk">testBulk()</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </body>
 
 </html>

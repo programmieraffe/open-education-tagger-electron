@@ -1,9 +1,18 @@
 
+
 See [https://github.com/programmieraffe/open-education-tagger] for all details
 
-## 2DO:
+Little tool to sync a Google Drive Spreadsheet to an elasticsearch instance, using Bulk-API to minimize API usage. This will save spreadsheet-ID for each entry, before syncing all entries with the given spreadsheet will be cleared/deleted.
 
+## Test it
+
+1. `npm install`
+2. `npm run`
+
+## 2DO:
+- better solve "callback hell"
 - implement config values for syncing
+- copy all values to elasticsearch
 - save them via electron-store
 - implement index or update (not implemented right now)
 - ! crossbrowser test
@@ -14,6 +23,10 @@ See [https://github.com/programmieraffe/open-education-tagger] for all details
 
 - (later) command line output without developer tools?
 - error handling
+- add option for multiple spreadsheets
+- use google spreadsheet ID row ? "id":{
+               "$t":"https://spreadsheets.google.com/feeds/list/1gqRt0UxtcTNGKduQnTlV1MR3U5ByBkzCyTMkWE6wb04/od6/public/values/ciyn3"
+            },
 
 ## How it was developed
 
