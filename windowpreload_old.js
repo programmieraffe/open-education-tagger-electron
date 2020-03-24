@@ -1,8 +1,12 @@
-'use strict';
+
+
 
 window.https = require('https');
 window.tryjson = require('tryjson');
 
+// 2DO: how to access app inside?
+// console.log('apppath', app.getAppPath());
+// console.log('user data', app.getPath('userData'));
 
 window.onload = function() {
   var script = document.createElement("script");
@@ -10,6 +14,7 @@ window.onload = function() {
   script.onload = script.onreadystatechange = function() {
     $(document).ready(function() {
       console.log('hello jquery world');
+
 
         const crypto = require('crypto')
 
@@ -29,6 +34,40 @@ window.onload = function() {
         store.delete('unicorn');
         console.log(store.get('unicorn'));
         //=> undefined*/
+
+        const configFormFields = [
+          'oet_spreadsheet_id',
+          'oet_spreadsheet_sheet_id',
+          'oet_elasticsearch_index',
+          'oet_elasticsearch_auth_string_write'];
+
+        configFormFields.forEach(function(formFieldName){
+          // 2DO: load values
+          console.log('check if value is in store', formFieldName, " = ", configStore.get(formFieldName));
+
+          const valueInStore = configStore.get(formFieldName);
+
+          // if value is already stored, apply it to form field
+          if(valueInStore !== undefined){
+            $("input[name="+formFieldName+"]").val(valueInStore);
+          }
+
+          // initiatie jquery event
+          $("input[name="+formFieldName+"]").bind('input propertychange', function() {
+            console.log('event - form field value was changed',this);
+            console.log('save new value to config store',this.value);
+            configStore.set(formFieldName,this.value);
+          });
+
+        }, this); // 2DO: is bind needed?
+
+
+        $("#oetClearCache").click(function(){
+          configStore.clear();
+        },this);
+
+
+
 
         $('#text-input').bind('input propertychange', function() {
           const text = this.value

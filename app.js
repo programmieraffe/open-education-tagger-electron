@@ -1,14 +1,18 @@
-const {app, BrowserWindow} = require('electron')
+const {
+  app,
+  BrowserWindow
+} = require('electron')
 const path = require('path')
 const url = require('url')
 
 let window = null
 
-
 // Wait until the app is ready
 app.once('ready', () => {
 
-  console.log('apppath',app.getAppPath());
+  // output on terminal
+  console.log('apppath', app.getAppPath());
+  console.log('user data', app.getPath('userData'));
 
   // Create a new window
   window = new BrowserWindow({
@@ -24,7 +28,7 @@ app.once('ready', () => {
     // 2DO: change this later!
     // https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content
     webPreferences: {
-      preload: path.join(app.getAppPath(), 'windowpreload.js')
+      preload: path.join(app.getAppPath(), 'preload.js')
       //nodeIntegration: true,
       //nodeIntegrationInWorker: true
     }

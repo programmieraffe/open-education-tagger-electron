@@ -2,10 +2,14 @@
 ## 2DO:
 
 - implement config values for syncing
+- save them via electron-store
+- implement index or update (not implemented right now)
+- ! crossbrowser test
+-  replace bootstrap & jquery with local installation, no cdn
 - use https://www.npmjs.com/package/electron-workers ? (example: https://github.com/trusktr/electron-web-worker-example)
 - clean up
 - add index or update
-- crossbrowser test
+
 - (later) command line output without developer tools?
 - error handling
 
