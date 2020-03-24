@@ -1,4 +1,6 @@
 
+See [https://github.com/programmieraffe/open-education-tagger] for all details
+
 ## 2DO:
 
 - implement config values for syncing
@@ -8,7 +10,7 @@
 -  replace bootstrap & jquery with local installation, no cdn
 - use https://www.npmjs.com/package/electron-workers ? (example: https://github.com/trusktr/electron-web-worker-example)
 - clean up
-- add index or update
+- check last successful update & store it locally? (otherwise api limit will be reached)
 
 - (later) command line output without developer tools?
 - error handling

@@ -168,7 +168,6 @@ class OpenEducationTagger {
 
     // configure authentication
     // 2DO: use stored values
-    // let userAndPass = 'SxXGi7v3m:cc24f410-91dc-4bd5-8b84-1b19fe0dc567';
     const userAndPass = this.oet_elasticsearch_auth_string_write;
     const authString = "Basic " + btoa(userAndPass); // base64 encoding
     console.log('authString', authString);
