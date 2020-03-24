@@ -7,7 +7,9 @@ Little tool to sync a Google Drive Spreadsheet to an elasticsearch instance, usi
 ## Test it
 
 1. `npm install`
-2. `npm run`
+2. `npm start`
+
+(You can register a free elasticsearch instance at appbase.io or bonsai.io)
 
 ## 2DO:
 - better solve "callback hell"
