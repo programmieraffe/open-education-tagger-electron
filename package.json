@@ -5,14 +5,19 @@
   "repository": "https://github.comprogrammieraffe/open-education-tagger-electron",
   "main": "app.js",
   "scripts": {
-    "start": "electron app.js"
+    "start": "electron app.js",
+    "preinstall": "npx npm-force-resolutions"
   },
   "license": "ISC",
   "devDependencies": {
-    "electron": "^8.1.1"
+    "electron": "^8.2.0",
+    "minimist": "^1.2.5"
   },
   "dependencies": {
     "electron-store": "^5.1.1",
     "tryjson": "^1.1.4"
+  },
+  "resolutions": {
+    "minimist": "^1.2.5"
   }
 }

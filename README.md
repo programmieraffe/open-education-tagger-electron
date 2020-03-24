@@ -55,3 +55,7 @@ add
   npm install electron-store
 
   https://codeburst.io/build-a-todo-app-with-electron-d6c61f58b55a
+
+
+Update old package dependencies:
+https://flaviocopes.com/update-npm-dependencies/
